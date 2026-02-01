@@ -28,7 +28,7 @@ VALIDATE(){
 dnf module disable nginx -y &>>$LOGS_FILE
 VALIDATE $? "Disabled nginx old versions"
 
-dnf module enable nginx:1.24 -y
+dnf module enable nginx:1.24 -y &>>$LOGS_FILE
 VALIDATE $? "Enabling nignx 1.24 ver.."
 
 dnf install nginx -y &>>$LOGS_FILE
