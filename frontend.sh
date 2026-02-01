@@ -6,6 +6,8 @@ LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 Y="\e[33m"
 N="\e[0m"
+SOURCE_FILE="nginx-roboshop.conf"
+DEST_FILE="/etc/nginx/nginx.conf"
 
 if [ $USERID -ne 0 ]; then
     echo "Please run this command with sudo access only" | tee -a $LOGS_FILE
@@ -23,13 +25,13 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nginx -y
+dnf module disable nginx -y &>>$LOGS_FILE
 VALIDATE $? "Disabled nginx old versions"
 
 dnf module enable nginx:1.24 -y
 VALIDATE $? "Enabling nignx 1.24 ver.."
 
-dnf install nginx -y
+dnf install nginx -y &>>$LOGS_FILE
 VALIDATE $? "Installing ngnix"
 
 systemctl enable nginx 
@@ -43,13 +45,13 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v
 VALIDATE $? "downloading frontend code"
 
 cd /usr/share/nginx/html
+VALIDATE $? "Moving to app directory"
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOGS_FILE
 VALIDATE $? "copying frontend code"
 
-vim /etc/nginx/nginx.conf
-cp frontend.service /etc/nginx/nginx.conf
-VALIDATE $? "copying frontend service"
+cp ${SOURCE_FILE} ${DEST_FILE}
+VALIDATE $? "Updating Nginx configuration"
 
 systemctl restart nginx
 VALIDATE $? "Restarting nginx"
