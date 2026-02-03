@@ -50,7 +50,7 @@ VALIDATE $? "Moving to app directory"
 unzip /tmp/frontend.zip &>>$LOGS_FILE
 VALIDATE $? "copying frontend code"
 
-cp $SCRIPT_DIR/nginx-roboshop.conf $DEST_FILE
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 VALIDATE $? "Updating Nginx configuration"
 
 systemctl restart nginx
