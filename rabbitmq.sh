@@ -6,7 +6,7 @@ LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 Y="\e[33m"
 N="\e[0m"
-$SCRIPT_DIR=$PWD
+SCRIPT_DIR=$PWD
 
 if [ $USERID -ne 0 ]; then
     echo -e $R "Please run this command with sudo access only" $N | tee -a $LOGS_FILE
@@ -27,10 +27,10 @@ VALIDATE(){
 cp $SCRIPT_DIR/rabbitmq.repo /etc/systemd/system/rabbitmq.repo
 VALIDATE $? "Settingup RabbitMQ repo"
 
-dnf install rabbitmq-server -y
+dnf install rabbitmq-server -y &>>$LOGS_FILE
 VALIDATE $? "Installing RabbitMQ"
 
-systemctl enable rabbitmq-server
+systemctl enable rabbitmq-server &>>$LOGS_FILE
 systemctl start rabbitmq-server
 VALIDATE $? "Enabling and starting RabbitMQ Service"
 
