@@ -7,6 +7,7 @@ R="\e[31m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
+MYSQL_HOST=mysql.mskdaws88s.online
 
 if [ $USERID -ne 0 ]; then
     echo -e $R "Please run this command with sudo access only" $N | tee -a $LOGS_FILE
