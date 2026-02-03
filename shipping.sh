@@ -50,21 +50,21 @@ VALIDATE $? "Removing existing code"
 unzip /tmp/shipping.zip &>>$LOGS_FILE
 VALIDATE $? "Uzip shipping code"
 
-mvn clean package 
+mvn clean package &>>$LOGS_FILE
 VALIDATE $? "Cleaning package"
 
-mv target/shipping-1.0.jar shipping.jar 
+mv target/shipping-1.0.jar shipping.jar &>>$LOGS_FILE
 VALIDATE $? "Moving packages to shipping.jar"
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>>$LOGS_FILE
 VALIDATE $? "Enabling systemctl"
 
 systemctl daemon-reload
-systemctl enable catalogue  &>>$LOGS_FILE
-systemctl start catalogue
+systemctl enable shipping 
+systemctl start shipping
 VALIDATE $? "Starting and enabling shipping"
 
-dnf install mysql -y 
+dnf install mysql -y &>>$LOGS_FILE
 VALIDATE $? "Installing MySQL"
 
 mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities'
