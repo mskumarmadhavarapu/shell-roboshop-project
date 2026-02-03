@@ -54,6 +54,6 @@ cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
 VALIDATE $? "Enabling systemctl"
 
 systemctl daemon-reload
-systemctl enable catalogue  &>>$LOGS_FILE
-systemctl start catalogue
+systemctl enable payment  &>>$LOGS_FILE
+systemctl start payment
 VALIDATE $? "Starting and enabling payment"
