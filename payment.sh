@@ -6,7 +6,7 @@ LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 Y="\e[33m"
 N="\e[0m"
-$SCRIPT_DIR=$PWD
+SCRIPT_DIR=$PWD
 
 if [ $USERID -ne 0 ]; then
     echo -e $R "Please run this command with sudo access only" $N | tee -a $LOGS_FILE
@@ -35,7 +35,7 @@ else
     echo -e "Roboshop user already exist ... $Y SKIPPING $N"
 fi
 
-mkdir /app 
+mkdir -p /app 
 VALIDATE $? "Creating app direcotry"
 
 curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  &>>$LOGS_FILE
