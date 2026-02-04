@@ -54,4 +54,4 @@ cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 VALIDATE $? "Updating Nginx configuration"
 
 systemctl restart nginx
-VALIDATE $? "Restarting nginx"
+VALIDATE $? "Restarting Nginx server"
